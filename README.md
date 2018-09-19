@@ -14,9 +14,9 @@ Term: Fall 2018
 
 + Project summary: In this project, I conducted a brief study of what makes people in their everyday life. I used some techniques of texting mining, analyzing key words of the happy moments. The results showed that a large group of people are happy because of "friend". The happy moments are different for people in different life stages.
 
-[Project Report](docs/Unititled.html)
+[Project Report](docs/Untitled.html)
 
-[Project Code](docs/Unititled.rmd)
+[Project Code](docs/Untitled.Rmd)
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
