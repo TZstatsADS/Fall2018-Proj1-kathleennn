@@ -4,13 +4,13 @@ output:
   html_document: default
   pdf_document: default
 ---
-When we were in school, we were happy because when we got good grades. Then we went into the workforce, we were happy because of getting promoted. Next, we went into middle ages, we were happy because of children. When our children had grown up, what will make happy? For people in different life stages, some sources of their happiness are changing but some are not. Let's look at what will change and what will not through this data analysis. 
+When we were in school, we were happy because we got good grades. Then we went into the workforce, we were happy because of getting promoted. After that, we went into middle ages, we were happy because of children. Imagine, now, our children had grown up, what will make happy? For people in different life stages, some sources of their happiness are changing but some are not. Let's look at what will change and what will not via this data analysis. 
 
 ```{r pressure, echo=FALSE, out.width = '70%'}
 knitr::include_graphics("happiness.png")
 ```
 
-At the begining of the study, I will use topic modeling to divide happy moments in life into three categories. Next, I will investigate what moments in lives will make people happy when they are in different life stages. Finally, I will show my findings about the wording behavior of different people. 
+At the begining of the study, I will use topic modeling to divide happy moments in life into three categories. Secondly, I will investigate what moments in lives will make people happy when they are in different life stages. Finally, I will show my findings about the wording behavior of different people. 
 ```{r,warning= FALSE, message = FALSE, echo=FALSE}
 library(tidyverse)
 library(tidytext)
@@ -124,7 +124,7 @@ top_terms %>%
   coord_flip()
 ```
 
-I divided those texts into three topics and the above graph showed top 10 most relevant words for each topic. The topic 1 is essentially about Entertainment. People are happy because of doing some activities like playing game, eating delicious food or watching a movie. The topic 2 is about Family, people are happy because of their family members like their wife, husband, childrens and dogs. The topic 3 is about Properties and Achievements. People are happy because they did something they feel proud of like landing a job, bought a car etc. 
+I divided those texts into three topics and the above graphs showed top 10 most relevant words for each topic. The topic 1 is essentially about Entertainment. People are happy because of doing some activities like playing game, eating delicious food or watching a movie. The topic 2 is about Family, people are happy because of their family members like their wife, husband, childrens and dogs. The topic 3 is about Achievements. People are happy because they did something they feel proud of like landing a job, buying a car etc. 
 
 
 ##Overview of the frequent words
@@ -136,7 +136,7 @@ word_count %>%
       wordcloud2(size = 0.6,
                  rotateRatio = 0,backgroundColor = "grey")
 ```
-The top frequent words are relating to "friend", "family", "home", "birthday", "job", "dinner", "husband", "daughter",etc. These words showed the core source of happiniess for these people and it reflects what they value the most in their lives. Most of their happiness are relating to friends, Thus, friends play an indispensible role throughout people's lives no matther what ages they are in, no matter what gender they are, and no matter if they are single or married.   \newline
+The top frequent words are relating to "friend", "family", "home", "birthday", "job", "dinner", "husband", "daughter",etc. These words showed the core source of happiniess for these people and it reflects what they value the most in their lives. Most of their happiness are relating to friends, Thus, friends play an indispensible role throughout people's lives no matter what ages they are in, no matter what gender they are, and no matter if they are single or married.   \newline
 
 
 We can also have a numberical visulization of the Top frequent words and their frequncies by looking at the bar chart below. 
@@ -155,10 +155,10 @@ word_count %>%
 ```
 
 
-The most frequent word "friend" has a frequency way much higher the 2nd most frequent word "friend". That means friends plays an indispensible role in almost every people's life. Human beings are social animals, most of them can not live without friends. 
+The most frequent word "friend" has a frequency way much higher the 2nd most frequent word "friend". Human beings are social animals, most of them can not live without friends. 
 
 
-Then, I want know as people are getting old, how will their source of happiness change. I will look at top frequent words for people in different ages. 
+Then, I want to know as people are getting old, how will their source of happiness change. I will look at top frequent words for people in different ages. 
 
 
 ```{r, warning=FALSE, message=FALSE,echo=FALSE}
@@ -216,7 +216,7 @@ word_count_age_60$word <- factor(word_count_age_60$word, levels = word_count_age
 word_count_age_70$word <- factor(word_count_age_70$word, levels = word_count_age_70$word[order(word_count_age_70$n)])
 
 p1 <-word_count_age_20 %>%
-      slice(1:15) %>%
+      slice(1:20) %>%
       mutate(word = reorder(word, n)) %>%
       ggplot(aes(word, n)) +
       geom_col() +
@@ -275,38 +275,25 @@ p6 <- word_count_age_70 %>%
 grid.arrange(p1, p2,p3,p4,p5,p6, nrow = 3, top = "Top 20 Words for People in Different Age Groups")
 ```
 \newline
-Other than the top frequent words all people are talking about, teenagers also talk about "game","event", "girlfriend", "finished", "college", "exam" frenquently. \newline
 
 
-As for people in 20s, they talk more about "family", "home", "job", "night". \newline
+Other than the top frequent words for all people, teenagers talked about "game","event", "girlfriend", "finished", "college", "exam" frenquently. \newline
+
+
+For people in 20s, they talk more about "family", "home", "job", "night". \newline
+
+
 For people in 30s, "friend", "family" are still top frequent words. Other than that, "son", "daughter", "wife", "husband" become top frequent words. \newline
 
 
-For people in 40s, their top frequent words are similar to those of people in 30s. \newline
+For people in 40s, their top frequent words are similar to those in 30s. \newline
+
+
 For people who are older than 50, their top frequent words are still relating to family and friends, which are "friend", "daughter", "husband", "son", "home", "wife".And there are some new words appeared in the list, which are "visit", "dog", "love". \newline
 
 
 As we can see from these top frequent words list, some words are relating to each other. For example, "exam" will be associated with "school" in our common sense. Next, I want to know which words are correlated. 
 
-
-
-```{r,echo=FALSE}
-hm_data$sentence_length <- sapply(strsplit(hm_data$original_hm, " "), length)
-```
-
-
-```{r,echo=FALSE,message=FALSE,warning=FALSE}
-ggplot(hm_data, aes(x=age,color=gender, y=sentence_length)) +
-  geom_point(binaxis = "y", stackdir = "center",size=.15) +
-  ggtitle("Sentence Length Overview")+
-  scale_x_discrete(breaks=c("10","20","30","40","50","60","70"),
-        labels=c("10", "20", "30","40","50","60","70"))
-  
-  theme(axis.text.x = element_text(color="#993333",size=8, angle=45))
-```
-
-
-This graph shows different wording behavior for people in different age groups. It implies that people who are younger than 40 years old tend to write more words in this survey. And there are some extremely long texts writen by people in 20-30 age group.
 
 
 ### Create bigrams using the text data
@@ -356,7 +343,34 @@ desc_word_pairs %>%
 
 
 
-As we can see from this correlation map, "friend" is correlated with many words. That means people did many things with their friends. Also, "video"" is correlated with "game" and "played", they means people always use these three words together. And "offer", "job", "interview" are correlated with each other. 
+As we can see from this correlation map, "friend" is correlated with many words. That means people did many things with their friends. Also, "video"" is correlated with "game" and "played", they means people always use these three words together. And "offer", "job", "interview" are correlated with each other as well. We can observe that there are many pairs of correlated word like these in this graph.
+
+
+
+##Sentence Length
+
+
+Lastly, I want to know the wording behavior for people in different age groups.
+```{r,echo=FALSE}
+hm_data$sentence_length <- sapply(strsplit(hm_data$original_hm, " "), length)
+```
+
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,tidy = TRUE, tidy.opts = list(comment = FALSE) }
+p <- ggplot(hm_data, aes(x=age,color=gender, y=sentence_length)) +
+  geom_point(binaxis = "y", stackdir = "center",size=.15) +
+  ggtitle("Sentence Length Overview")+
+  scale_x_discrete(breaks=c("10","20","30","40","50","60","70"),
+        labels=c("10", "20", "30","40","50","60","70"))
+  
+  theme(axis.text.x = element_text(color="#993333",size=8, angle=45))
+grid.arrange(p,nrow = 1)
+```
+
+
+This graph shows different wording behavior for people in different age groups. It implies that people who are younger than 40 years old tend to write more words in this survey. And there are some extremely long texts writen by people in 20-30 age group.
+
+
 
 
 ###Summary
