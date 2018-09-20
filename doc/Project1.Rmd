@@ -1,11 +1,16 @@
 ---
-title: '5243'
-output: html_document
+title: 'What Made Us Happy?'
+output:
+  html_document: default
+  pdf_document: default
 ---
+When we were in school, we were happy because when we got good grades. Then we went into the workforce, we were happy because of getting promoted. Next, we went into middle ages, we were happy because of children. When our children had grown up, what will make happy? For people in different life stages, some sources of their happiness are changing but some are not. Let's look at what will change and what will not through this data analysis. 
 
-####What made people happy? 
+```{r pressure, echo=FALSE, out.width = '70%'}
+knitr::include_graphics("happiness.png")
+```
 
-Here are the top frequent words that made people happy in their life. Moreover, we want to know for people in different life stages, what moments in life will make them happy.
+At the begining of the study, I will use topic modeling to divide happy moments in life into three categories. Next, I will investigate what moments in lives will make people happy when they are in different life stages. Finally, I will show my findings about the wording behavior of different people. 
 ```{r,warning= FALSE, message = FALSE, echo=FALSE}
 library(tidyverse)
 library(tidytext)
@@ -85,22 +90,17 @@ There are some words in the survey that can not tell us what really makes people
 
 ##Topic Modeling 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
-#word_counts <- word_counts[-2,]
 chapters_dtm <- word_counts %>%
   cast_dtm(predicted_category, word, n)
-
-#chapters_dtm
 ```
 
 ```{r,echo=FALSE}
 library(topicmodels)
 chapters_lda <- LDA(chapters_dtm, k = 3, control = list(seed = 1234))
-#chapters_lda
 ```
 
 ```{r,echo=FALSE}
 chapter_topics <- tidy(chapters_lda, matrix = "beta")
-#chapter_topics
 ```
 
 
@@ -110,8 +110,6 @@ top_terms <- chapter_topics %>%
   top_n(10, beta) %>%
   ungroup() %>%
   arrange(topic, -beta)
-
-#top_terms
 ```
 
 
@@ -171,24 +169,6 @@ hm_bigrams <- hm_data %>%
 bigram_counts <- hm_bigrams %>%
   separate(bigram, c("word1", "word2"), sep = " ") %>%
   count(word1, word2, sort = TRUE)
-```
-
-
-```{r,echo=FALSE}
-# bigram_graph <- bigram_counts %>%
-#       slice(1:100) %>%
-#       graph_from_data_frame()
-#     
-#     set.seed(123)
-#     
-#     x <- grid::arrow(type = "closed", length = unit(.1, "inches"))
-#     
-#     ggraph(bigram_graph, layout = "fr") +
-#       geom_edge_link(aes(edge_alpha = n), show.legend = FALSE,
-#                      arrow = x, end_cap = circle(.05, 'inches')) +
-#       geom_node_point(color = "skyblue", size = 3) +
-#       geom_node_text(aes(label = name), repel = TRUE) +
-#       theme_void()
 ```
 
 ```{r,echo=FALSE,fig.height=10}
@@ -347,7 +327,6 @@ library(widyr)
 a <- hm_bigrams
 a<- a$bigram
 a <- unlist(strsplit(a," "))
-#dat <- data_frame(group = rep(1:37829), factor = hm_data$count,
 dat <- data_frame(group = rep(1:(979610/2), each = 2),
                   letter = a)
 title_word_pairs<-pairwise_count(dat, letter, group)
@@ -379,59 +358,6 @@ desc_word_pairs %>%
 
 As we can see from this correlation map, "friend" is correlated with many words. That means people did many things with their friends. Also, "video"" is correlated with "game" and "played", they means people always use these three words together. And "offer", "job", "interview" are correlated with each other. 
 
-```{r,echo=FALSE}
-# keyword_cors <- nasa_keyword %>%
-#   group_by(keyword) %>%
-#   filter(n() >= 50) %>%
-#   pairwise_cor(keyword, id, sort = TRUE, upper = FALSE)
-# 
-# #keyword_cors
-```
 
-
-
-
-
-
-
-```{r,echo=FALSE}
-ggplot(hm_bigrams, aes(x=ground_truth_category)) +
-  geom_density() 
-```
-
-
-```{r,echo=FALSE}
-  # temp <- bag_of_words  %>%
-  #    count(!!as.name(bag_of_words$gender), word) %>%
-  #     group_by(!!as.name(bag_of_words$gender)) %>%
-  #    mutate(proportion = n / sum(n)) %>%
-  #     select(-n) %>%
-  #     spread(!!as.name(bag_of_words$gender), proportion)
-
-  #    ggplot(temp,
-  #           aes_string(x = colnames(temp)[2], y = colnames(temp)[3]),
-  #           color = abs(colnames(temp)[3] - colnames(temp)[2])) +
-  #    geom_abline(color = "gray40", lty = 2) +
-  #    geom_jitter(alpha = 0.1, size = 1, width = 0.3, height = 0.3) +
-  #   geom_text(aes(label = word), check_overlap = TRUE, vjust = 1.5)
-  #   scale_x_log10(labels = percent_format()) +
-  #   scale_y_log10(labels = percent_format()) +
-  #  scale_color_gradient(limits = c(0, 0.001), low = "darkslategray4", high = "gray75") +
-  #  theme(legend.position="none")
-```
-
-
-```{r,echo=FALSE}
-# 
-# hm_bigrams %>%
-#       count(!!as.name(gender), bigram, sort = TRUE) %>%
-#       group_by(!!as.name(gender)) %>%
-#       top_n(10) %>%
-#       ungroup() %>%
-#       mutate(bigram = reorder(bigram, n)) %>% 
-#       ggplot(aes(bigram, n, fill = !!as.name(gender))) +
-#       geom_col(show.legend = FALSE) +
-#       facet_wrap(as.formula(paste("~", gender)), ncol = 2, scales = "free") +
-#       coord_flip()
-```
-
+###Summary
+After analyzing the HappyDB data, I conclude that some sources of happiness are not changing throughout people's entire life, which includes "friend" and "family". People are happy because of their loved ones. 
