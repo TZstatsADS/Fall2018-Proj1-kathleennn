@@ -9,12 +9,12 @@ This is the first and only *individual* (as opposed to *team*) this semester.
 
 Term: Fall 2018
 
-+ Projec title: What makes people happy?
++ Projec title: What Made Us Happy?
 + This project is conducted by Rui Zhang(rz2406)
 
 + Project summary: In this project, I conducted a brief study of what makes people in their everyday life. I used some techniques of texting mining, analyzing key words of the happy moments. The results showed that a large group of people are happy because of "friend". The happy moments are different for people in different life stages.
 
-![image](https://github.com/TZstatsADS/Fall2018-Proj1-kathleennn/tree/master/figs/happiness.jpeg)
+![image](doc/happiness.png)
 
 
 [Project Report](https://github.com/TZstatsADS/Fall2018-Proj1-kathleennn/tree/master/doc/Project1.html)
