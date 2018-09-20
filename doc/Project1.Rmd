@@ -2,7 +2,10 @@
 title: '5243'
 output: html_document
 ---
-What made people happy? Here are the top frequent words that made people happy in their life. Moreover, we want to know for people in different life stages, what moments in life will make them happy.
+
+####What made people happy? 
+
+Here are the top frequent words that made people happy in their life. Moreover, we want to know for people in different life stages, what moments in life will make them happy.
 ```{r,warning= FALSE, message = FALSE, echo=FALSE}
 library(tidyverse)
 library(tidytext)
