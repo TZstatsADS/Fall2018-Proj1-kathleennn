@@ -14,7 +14,7 @@ Term: Fall 2018
 
 + Project summary: In this project, I conducted a brief study of what makes people in their everyday life. I used some techniques of texting mining, analyzing key words of the happy moments. The results showed that a large group of people are happy because of "friend". The happy moments are different for people in different life stages.
 
-![image](figs/happiness.jpeg)
+![image](https://github.com/TZstatsADS/Fall2018-Proj1-kathleennn/tree/master/figs/happiness.jpeg)
 
 
 [Project Report](https://github.com/TZstatsADS/Fall2018-Proj1-kathleennn/tree/master/doc/Project1.html)
