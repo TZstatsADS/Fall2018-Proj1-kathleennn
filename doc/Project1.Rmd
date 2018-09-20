@@ -375,3 +375,8 @@ This graph shows different wording behavior for people in different age groups. 
 
 ###Summary
 After analyzing the HappyDB data, I conclude that some sources of happiness are not changing throughout people's entire life, which includes "friend" and "family". People are happy because of their loved ones. 
+
+
+#References:
+- Silge, Julia, and David Robinson. Text Mining with R, 18 Aug. 2018, www.tidytextmining.com/topicmodeling.html.
+
